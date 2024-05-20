@@ -3,17 +3,20 @@
 ENDPOINT="http://localhost:8000"
 TABLE_NAME="nextjs-app"
 
-echo "List of current tables in DynamoDB."
+echo "Make sure Docker container is running ..."
+docker-compose up -d
+
+echo "List of current tables in DynamoDB ..."
 aws dynamodb list-tables \
   --endpoint-url ${ENDPOINT}
 
-echo "Delete ${TABLE_NAME} if exists."
+echo "Deleting ${TABLE_NAME} if exists ..."
 aws dynamodb delete-table \
   --endpoint-url ${ENDPOINT} \
   --table-name ${TABLE_NAME} \
   --no-cli-pager
 
-echo "Creating DynamoDB table for the app."
+echo "Creating DynamoDB table for the app ..."
 aws dynamodb create-table \
   --endpoint-url ${ENDPOINT} \
   --table-name ${TABLE_NAME} \
